@@ -25,22 +25,19 @@ int wordladder(char * initial, char * goal, long maxsteps, struct trie * test) {
 	char ** current = &s; // will keep track of head of queue being processed
 
 	int zero = 0;
-	int * steps = &zero; //wil keep track of the no. of steps associated to a word
+	int * steps = &zero; // wil keep track of the no. of steps associated to a word
 
 	char * smth;
-	char ** prevword = &smth; //will keep track of reached from attribute of a word
+	char ** prevword = &smth; // will keep track of reached from attribute of a word
 
 	int zeros = 0;
-	int * stepss = &zeros; //wil keep track of the no. of steps associated to a word
+	int * stepss = &zeros; // wil keep track of the no. of steps associated to a word
 
 	char * smths;
 	char ** prevwords = &smths;
 
 	createD(&q);
 	createD(&stack);
-
-	// printf("*%s*", initial);
-	// printf("*%s*", goal);
 
 	char * alphabet = "abcdefghijklmnopqrstuvwxyz";
 	addD(&q, initial);
@@ -57,7 +54,7 @@ int wordladder(char * initial, char * goal, long maxsteps, struct trie * test) {
 				for (int j = 0; j < 26; j++) { // changing every letter
 					char * nextcopy = strdup(*current);
 					nextcopy[i] = alphabet[j];
-					if (strcmp(nextcopy, *current) == 0) { //check whether variation is 
+					if (strcmp(nextcopy, *current) == 0) {
 						free(nextcopy);
 						continue;
 					}
@@ -68,11 +65,9 @@ int wordladder(char * initial, char * goal, long maxsteps, struct trie * test) {
 						insertT(&searchtable, dup, *current, ++(*steps));
 						while (dup != NULL) {
 							pushD(&stack, dup);
-							//printf("%s\n", nextcopy);
 							searchT(&searchtable, dup, stepss, prevwords);
 							dup = *prevwords;
 						}
-						//pushD(&stack, nextcopy);
 						DONE++;
 						break;
 
@@ -98,7 +93,7 @@ int wordladder(char * initial, char * goal, long maxsteps, struct trie * test) {
 		else break;
 	}
 	if (DONE == 0) {
-		exit(0); //shouldn't I be printing to stderr?
+		exit(0); 
 	}
 
 	char * line;
@@ -108,8 +103,6 @@ int wordladder(char * initial, char * goal, long maxsteps, struct trie * test) {
 		printf("%s\n", *result);
 	}
 	
-	
-	//destroyT(&searchtable);
 	destroyT(&test);
 	destroyD(&q);
 	destroyD(&stack);
@@ -239,12 +232,6 @@ int main (int argc, char * argv[]) {
 	int zero = 0;
 	int * step = &zero;
 
-	// char*initialcopy = strdup(initial);
-	// char*goalcopy = strdup(goal);
-
-	// printf("*%s*", initial);
-	// printf("*%s*", goal);
-
 	int k = 0;
 	char d;
 
@@ -263,7 +250,6 @@ int main (int argc, char * argv[]) {
 		}
 	}
 	goal[k] = '\0';
-	//printf("*%s*", initial);
 	if (!(searchT(&test, initial, step, result))) {
 	 	DIE("Word not in dictionary");
 	}
@@ -273,8 +259,6 @@ int main (int argc, char * argv[]) {
 
 	if (strcmp(initial, goal) == 0) printf("%s\n", initial);
 	
-	// printf("*%s*", initial);
-	// printf("*%s*", goal);
 	wordladder(initial, goal, maxsteps, test);
 
 	exit(0);
