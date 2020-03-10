@@ -13,9 +13,6 @@
 // Print error message unless COND is true
 #define ORDIE(cond,msg)     if (cond) ; else DIE(msg)
 
-// char c;
-// int next = c - 'a';
-// child[next];
 int max = 0;
 
 struct trie {
@@ -39,7 +36,6 @@ bool insertT(Trie * t, char *attr, char *previous, int steps) {
 	if (max > 65536) DIE("too many inserts");
 	max++;
 	struct trie * current = *t;
-	/*e = malloc(sizeof(struct trie));*/
 	for (int i = 0; i < strlen(attr); i++) {
 		int key = attr[i] - 'a';
 		if (current == NULL) DIE("current is null");
